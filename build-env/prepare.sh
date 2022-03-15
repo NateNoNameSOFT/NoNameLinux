@@ -32,7 +32,7 @@ cat > $dbhome/.bashrc << EOF
 set +h
 umask 022
 LFS=$LFS
-DIST_ROOT=$DIST_ROOT
+export DIST_ROOT=$DIST_ROOT
 EOF
 
 cat >> $dbhome/.bashrc << "EOF"
@@ -43,6 +43,7 @@ if [ ! -L /bin ]; then PATH=/bin:$PATH; fi
 PATH=$LFS/tools/bin:$PATH
 CONFIG_SITE=$LFS/usr/share/config.site
 export LFS LC_ALL LFS_TGT PATH CONFIG_SITE
+export MAKEFLAGS="-j$(nproc)"
 EOF
 
 fi
