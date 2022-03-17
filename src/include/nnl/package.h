@@ -2,6 +2,11 @@
 #define PACKAGE_H_
 
 #include <nnl/common.h>
+#include <stdio.h>
+#include <string.h>
+#include <dirent.h>
+#include <stdlib.h>
+#include <unistd.h>
 
 /* YAML document structure:
 
@@ -25,15 +30,17 @@ extras: [
 */
 
 typedef struct {
-    char *name;
-    char *version;
-    char *repo;
-    char *source;
-    bool is_group;
-    bool no_source;
-    str_list deps;
-    str_list mkdeps;
-    str_list extras;
+  char *name;
+  char *version;
+  char *repo;
+  char *source;
+  bool is_group;
+  bool no_package;
+  str_list deps;
+  str_list mkdeps;
+  str_list extras;
 } nnl_package;
+
+u32 nnl_package_to_string(nnl_package *pck, char *buffer, u32 max_size);
 
 #endif

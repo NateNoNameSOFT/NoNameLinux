@@ -53,3 +53,4 @@ dkms.conf
 
 build-env/build-root
 build-env/dist-temp-tools.txz
+.vscode
