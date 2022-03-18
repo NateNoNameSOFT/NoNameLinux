@@ -89,3 +89,26 @@ str_list *str_list_from_str(char *str, char *sep){
 
     return head;
 }
+
+bool create_package_path(char *root, char *name){
+    char path[1024];
+    sprintf(path, "%s/repo/%c", root, name[0]);
+
+    if(access(path, F_OK) != 0){
+        if(mkdir(path, 0775)){
+            fprintf(stderr, "Failed to create repo path\n");
+            return false;
+        }
+    }
+
+    sprintf(path, "%s/repo/%c/%s", root, name[0], name);
+
+    if(access(path, F_OK) != 0){
+        if(mkdir(path, 0775)){
+            fprintf(stderr, "Failed to create repo path\n");
+            return false;
+        }
+    }
+
+    return true;
+}
