@@ -8,6 +8,8 @@
 #include <stdlib.h>
 #include <unistd.h>
 
+#include <yaml.h>
+
 /* YAML document structure:
 
 name: glibc
@@ -42,5 +44,7 @@ typedef struct {
 } nnl_package;
 
 u32 nnl_package_to_string(nnl_package *pck, char *buffer, u32 max_size);
+
+nnl_package *package_load(char *root, char *name);
 
 #endif
