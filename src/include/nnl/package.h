@@ -44,7 +44,21 @@ typedef struct {
 } nnl_package;
 
 u32 nnl_package_to_string(nnl_package *pck, char *buffer, u32 max_size);
-
 nnl_package *package_load(char *root, char *name);
+
+typedef struct package_list_entry_{
+  nnl_package *pck;
+  struct package_list_entry_ *next;
+} package_list_entry;
+
+typedef struct{
+  package_list_entry *head;
+  package_list_entry *tail;
+} package_list;
+
+bool package_load_all(char *root, package_list *list);
+nnl_package *package_list_find(package_list *list, char *name);
+package_list_entry *package_list_add(package_list *list, nnl_package *pck);
+bool package_is_installed(char *root, char *name);
 
 #endif
