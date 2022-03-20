@@ -15,6 +15,11 @@ done;
 
 mkdir -pv $LFS/{bin,etc,lib,sbin,usr,var,lib64,tools}
 
+mkdir -p $LFS/usr/share/nnpkm/inst
+mkdir -p $LFS/usr/share/nnpkm/build
+mkdir -p $LFS/usr/share/nnpkm/repo
+cp -r $DIST_ROOT/repo $LFS/usr/share/nnpkm
+
 if ! test $(id -u distbuild) ; then
 
 groupadd distbuild
