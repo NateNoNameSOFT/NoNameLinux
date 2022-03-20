@@ -32,6 +32,7 @@ extras: [
 */
 
 typedef struct {
+  //yaml fields
   char *name;
   char *version;
   char *repo;
@@ -41,6 +42,11 @@ typedef struct {
   str_list deps;
   str_list mkdeps;
   str_list extras;
+
+  //temp fields
+  bool installed;
+  char *repo_path;
+  bool is_dep;
 } nnl_package;
 
 u32 nnl_package_to_string(nnl_package *pck, char *buffer, u32 max_size);
@@ -60,5 +66,24 @@ bool package_load_all(char *root, package_list *list);
 nnl_package *package_list_find(package_list *list, char *name);
 package_list_entry *package_list_add(package_list *list, nnl_package *pck);
 bool package_is_installed(char *root, char *name);
+
+typedef struct {
+  char *root;
+  char *pckm_base;
+
+  // the entire repo
+  package_list all_packages;
+  // packages to install or build
+  package_list packages; 
+  nnl_package *cur_pck;
+
+  // command line option toggles
+  bool install;
+  bool rebuild;
+  bool verbose;
+  bool rebuild_deps;
+} nnpkm_context;
+
+bool package_load_context(nnpkm_context *ctx, str_list *packages);
 
 #endif
