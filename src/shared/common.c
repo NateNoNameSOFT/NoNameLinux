@@ -1,4 +1,19 @@
+#define _XOPEN_SOURCE 500
+
 #include <nnl/common.h>
+
+int remove_callback(const char *fpath, const struct stat *sb, int typeflag, struct FTW *ftwbuf){
+    int rv = remove(fpath);
+
+    if(rv)
+        perror(fpath);
+    
+    return rv;
+}
+
+int remove_directory(char *path){
+    return nftw(path, remove_callback, 64, FTW_DEPTH | FTW_PHYS);
+}
 
 str_list *str_list_append(str_list *l, char *s){
     if(!l)

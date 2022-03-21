@@ -9,6 +9,12 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <sys/stat.h>
+#include <ftw.h>
+#include <fcntl.h>
+#include <stdarg.h>
+#include <sys/wait.h>
+#include <errno.h>
+#include <libgen.h>
 
 typedef uint64_t u64;
 typedef uint32_t u32;
@@ -25,5 +31,14 @@ void str_list_free(str_list *l, bool free_head);
 void str_list_copy(str_list *to, str_list *from);
 str_list *str_list_from_str(char *str, char *sep);
 bool create_package_path(char *root, char *name);
+
+bool copy_file(const char *from, char *to);
+bool copy_dir_contents(char *path, char *to);
+
+int exec_command(char *exe, char *log_file, ...);
+
+int run_with_chroot(char *root, int (*func)(void *), void *p);
+
+int remove_directory(char *path);
 
 #endif

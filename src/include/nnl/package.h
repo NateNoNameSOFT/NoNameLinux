@@ -7,6 +7,9 @@
 #include <dirent.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <libgen.h>
+#include <sys/sysinfo.h>
+#include <sys/stat.h>
 
 #include <yaml.h>
 
@@ -30,6 +33,9 @@ extras: [
 ]
 
 */
+
+static const char *DL_CACHE = "/usr/share/nnpkm/dl-cache/";
+static const char *BUILD_PATH = "/usr/share/nnpkm/build";
 
 typedef struct {
   //yaml fields
@@ -85,5 +91,7 @@ typedef struct {
 } nnpkm_context;
 
 bool package_load_context(nnpkm_context *ctx, str_list *packages);
+
+bool package_build(char *root, nnl_package *pck);
 
 #endif
